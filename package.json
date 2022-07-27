@@ -3,9 +3,11 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "deploy":"netlify deploy --dir=./dist -p -m 'git log -1 --pretty=%B'"
   },
   "devDependencies": {
+    "netlify-cli": "^10.12.1",
     "parcel": "latest"
   }
 }
