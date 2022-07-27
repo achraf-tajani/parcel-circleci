@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  deploy:
+    docker: 
+      image: cimg/node:16.10
+    steps:
+      checkout
+      retore_cache:
+        keys:
+          v1-dependecies-{{ checksum "package.json"}}
+          v1-dependecies-
+      run:
+        name: Install Dependencies
+        commande: npm install
+      save_cache:
+        paths:
+          node_modules
+        key: v1-dependecies-{{ checksum "package.json"}}
+      run:
+        name: Build
+        commande: npm run build
+      run:
+        name: Deploy at netlify
+        command: npm run deploy
+
+
+workflows:
+  build_deploy:
+    jobs:
+      deploy
